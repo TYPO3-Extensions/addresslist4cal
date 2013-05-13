@@ -61,7 +61,11 @@
 <li><a class="reference internal" href="#user-manual">User manual</a></li>
 <li><a class="reference internal" href="#administration">Administration</a><ul>
 <li><a class="reference internal" href="#installing-the-extension">Installing the extension</a></li>
-<li><a class="reference internal" href="#typoscript-configuration">TypoScript configuration</a></li>
+<li><a class="reference internal" href="#typoscript-configuration">TypoScript configuration</a><ul>
+<li><a class="reference internal" href="#detailpage">detailPage</a></li>
+<li><a class="reference internal" href="#addressuidparam">addressUidParam</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#templating">Templating</a></li>
 </ul>
 </li>
@@ -180,6 +184,8 @@ check out the <a class="reference external" href="http://forge.typo3.org/project
 be displayed within the cal event display.</p>
 <p>The needed changes for the cal event template are described in the
 <a class="reference internal" href="#my-templating-label"><em>Templating</em></a> section.</p>
+<p>If you want to add a link to a detail page, using wt_directory for example, you can add TypoScript configuration
+to add creation of the target url of the detail page.</p>
 </div>
 <div class="section" id="administration">
 <h2>Administration<a class="headerlink" href="#administration" title="Permalink to this headline">¶</a></h2>
@@ -191,14 +197,29 @@ When installing a new field <em>tx_addresslist4cal_addresses</em> is added to th
 </div>
 <div class="section" id="typoscript-configuration">
 <h3>TypoScript configuration<a class="headerlink" href="#typoscript-configuration" title="Permalink to this headline">¶</a></h3>
-<p>To be filled out later.</p>
+<div class="section" id="detailpage">
+<h4>detailPage<a class="headerlink" href="#detailpage" title="Permalink to this headline">¶</a></h4>
+<p>The TypoScript setting <em>detailPage</em> defines the page id of the page with the detail view of an address record.</p>
+<div class="highlight-guess"><div class="highlight"><pre><span class="n">plugin</span><span class="p">.</span><span class="n">tx_addresslist4cal</span><span class="p">.</span><span class="n">detailPage</span> <span class="o">=</span> <span class="mi">81</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="addressuidparam">
+<h4>addressUidParam<a class="headerlink" href="#addressuidparam" title="Permalink to this headline">¶</a></h4>
+<p>The TypoScript setting <em>addressUidParam</em> defines the url parameter that passes the uid of the tt_address record
+to the detail page.</p>
+<div class="highlight-guess"><div class="highlight"><pre><span class="n">plugin</span><span class="p">.</span><span class="n">tx_addresslist4cal</span><span class="p">.</span><span class="n">addressUidParam</span> <span class="o">=</span> <span class="n">tx_wtdirectory_pi1</span><span class="p">[</span><span class="n">show</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="templating">
 <span id="my-templating-label"></span><h3>Templating<a class="headerlink" href="#templating" title="Permalink to this headline">¶</a></h3>
 <p>The templating is done by enhancing the existing cal event template.</p>
 <p>In the <em>event_model.tmpl</em> file the section <strong>TEMPLATE_PHPICALENDAR_EVENT</strong> has to be enhaced.</p>
-<p>The template for displaying every single address record must created inside of the section.
-The marker for the single address template is <strong>ADDRESSLIST4CAL_ADDRESS</strong>.</p>
+<p>The template for displaying every single address record must created inside of the section
+<strong>TEMPLATE_PHPICALENDAR_EVENT</strong>.
+The marker for the single address template is <strong>ADDRESSLIST4CAL_ADDRESS</strong>. A sample template part looks like this:</p>
 <div class="highlight-guess"><div class="highlight"><pre><span class="o">&lt;!--</span> <span class="err">###</span><span class="n">ADDRESSLIST4CAL_ADDRESS</span><span class="err">###</span> <span class="n">begin</span> <span class="o">--&gt;</span>
 <span class="cp">###LAST_NAME###, ###FIRST_NAME###&lt;br /&gt;</span>
 <span class="o">&lt;</span><span class="n">hr</span> <span class="o">/&gt;</span>
@@ -206,9 +227,17 @@ The marker for the single address template is <strong>ADDRESSLIST4CAL_ADDRESS</s
 </pre></div>
 </div>
 <p>For each <em>tt_address</em> record this template is used and concatenated to the previous one.
-Inside the template you can use all field names of the <em>tt_address</em> record (in upper case) as marker.
-The complete address list is then inserted inside the <strong>TEMPLATE_PHPICALENDAR_EVENT</strong> section
+Inside the template you can use all field names of the <em>tt_address</em> record (in upper case) as marker.</p>
+<p>The complete address list is then inserted inside the <strong>TEMPLATE_PHPICALENDAR_EVENT</strong> section
 with the marker <strong>ADDRESSLIST4CAL</strong> .</p>
+<p>Using the TypoScript settings for the detail page, the template part looks like this:</p>
+<div class="highlight-guess"><div class="highlight"><pre><span class="c">&lt;!-- ###ADDRESSLIST4CAL_ADDRESS### begin --&gt;</span>
+###LAST_NAME###, ###FIRST_NAME###<span class="nt">&lt;br</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;###DETAIL_PAGE_URL###&quot;</span><span class="nt">&gt;</span>Details...<span class="nt">&lt;/a&gt;&lt;br</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;hr</span> <span class="nt">/&gt;</span>
+<span class="c">&lt;!-- ###ADDRESSLIST4CAL_ADDRESS### end --&gt;</span>
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="configuration">

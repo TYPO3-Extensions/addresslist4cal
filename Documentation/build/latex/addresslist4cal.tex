@@ -14,7 +14,7 @@
 
 
 \title{addresslist4cal Documentation}
-\date{May 10, 2013}
+\date{May 14, 2013}
 \release{1.0.0-alpha}
 \author{Michael Oehlhof}
 \newcommand{\sphinxlogo}{}
@@ -194,6 +194,9 @@ be displayed within the cal event display.
 The needed changes for the cal event template are described in the
 {\hyperref[index:my-templating-label]{\emph{Templating}}} section.
 
+If you want to add a link to a detail page, using wt\_directory for example, you can add TypoScript configuration
+to add creation of the target url of the detail page.
+
 
 \chapter{Administration}
 \label{index:administration}
@@ -208,7 +211,24 @@ When installing a new field \emph{tx\_addresslist4cal\_addresses} is added to th
 
 \section{TypoScript configuration}
 \label{index:typoscript-configuration}
-To be filled out later.
+
+\subsection{detailPage}
+\label{index:detailpage}
+The TypoScript setting \emph{detailPage} defines the page id of the page with the detail view of an address record.
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{plugin}\PYG{p}{.}\PYG{n}{tx\PYGZus{}addresslist4cal}\PYG{p}{.}\PYG{n}{detailPage} \PYG{o}{=} \PYG{l+m+mi}{81}
+\end{Verbatim}
+
+
+\subsection{addressUidParam}
+\label{index:addressuidparam}
+The TypoScript setting \emph{addressUidParam} defines the url parameter that passes the uid of the tt\_address record
+to the detail page.
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{plugin}\PYG{p}{.}\PYG{n}{tx\PYGZus{}addresslist4cal}\PYG{p}{.}\PYG{n}{addressUidParam} \PYG{o}{=} \PYG{n}{tx\PYGZus{}wtdirectory\PYGZus{}pi1}\PYG{p}{[}\PYG{n}{show}\PYG{p}{]}
+\end{Verbatim}
 
 
 \section{Templating}
@@ -217,8 +237,9 @@ The templating is done by enhancing the existing cal event template.
 
 In the \emph{event\_model.tmpl} file the section \textbf{TEMPLATE\_PHPICALENDAR\_EVENT} has to be enhaced.
 
-The template for displaying every single address record must created inside of the section.
-The marker for the single address template is \textbf{ADDRESSLIST4CAL\_ADDRESS}.
+The template for displaying every single address record must created inside of the section
+\textbf{TEMPLATE\_PHPICALENDAR\_EVENT}.
+The marker for the single address template is \textbf{ADDRESSLIST4CAL\_ADDRESS}. A sample template part looks like this:
 
 \begin{Verbatim}[commandchars=\\\{\}]
 \PYG{o}{\PYGZlt{}}\PYG{o}{!}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}} \PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}\PYG{n}{ADDRESSLIST4CAL\PYGZus{}ADDRESS}\PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}} \PYG{n}{begin} \PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}
@@ -229,8 +250,19 @@ The marker for the single address template is \textbf{ADDRESSLIST4CAL\_ADDRESS}.
 
 For each \emph{tt\_address} record this template is used and concatenated to the previous one.
 Inside the template you can use all field names of the \emph{tt\_address} record (in upper case) as marker.
+
 The complete address list is then inserted inside the \textbf{TEMPLATE\_PHPICALENDAR\_EVENT} section
 with the marker \textbf{ADDRESSLIST4CAL} .
+
+Using the TypoScript settings for the detail page, the template part looks like this:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZlt{}!\PYGZhy{}\PYGZhy{}}\PYG{c}{ \PYGZsh{}\PYGZsh{}\PYGZsh{}ADDRESSLIST4CAL\PYGZus{}ADDRESS\PYGZsh{}\PYGZsh{}\PYGZsh{} begin }\PYG{c}{\PYGZhy{}\PYGZhy{}\PYGZgt{}}
+\PYGZsh{}\PYGZsh{}\PYGZsh{}LAST\PYGZus{}NAME\PYGZsh{}\PYGZsh{}\PYGZsh{}, \PYGZsh{}\PYGZsh{}\PYGZsh{}FIRST\PYGZus{}NAME\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYG{n+nt}{\PYGZlt{}br} \PYG{n+nt}{/\PYGZgt{}}
+\PYG{n+nt}{\PYGZlt{}a} \PYG{n+na}{href=}\PYG{l+s}{\PYGZdq{}\PYGZsh{}\PYGZsh{}\PYGZsh{}DETAIL\PYGZus{}PAGE\PYGZus{}URL\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZdq{}}\PYG{n+nt}{\PYGZgt{}}Details...\PYG{n+nt}{\PYGZlt{}/a\PYGZgt{}}\PYG{n+nt}{\PYGZlt{}br} \PYG{n+nt}{/\PYGZgt{}}
+\PYG{n+nt}{\PYGZlt{}hr} \PYG{n+nt}{/\PYGZgt{}}
+\PYG{c}{\PYGZlt{}!\PYGZhy{}\PYGZhy{}}\PYG{c}{ \PYGZsh{}\PYGZsh{}\PYGZsh{}ADDRESSLIST4CAL\PYGZus{}ADDRESS\PYGZsh{}\PYGZsh{}\PYGZsh{} end }\PYG{c}{\PYGZhy{}\PYGZhy{}\PYGZgt{}}
+\end{Verbatim}
 
 
 \chapter{Configuration}

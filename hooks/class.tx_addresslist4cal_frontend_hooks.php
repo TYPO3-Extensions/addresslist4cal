@@ -56,6 +56,17 @@ class tx_addresslist4cal_frontend_hooks {
 				foreach ($row as $key => $value) {
 					$markContentArray['###' . strtoupper($key) . '###'] = $value;
 				}
+				// Get configuration
+				$config = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_addresslist4cal.'];
+				// Add marker for detail page
+				$url=$thisCal->local_cObj->typoLink_URL(
+					array(
+						'parameter'=>$config['detailPage'],
+						'useCacheHash'=>true,
+						'additionalParams'=>'&' . $config['addressUidParam'] . '=' . $row['uid']
+					)
+				);
+				$markContentArray['###DETAIL_PAGE_URL###'] = $url;
 
 				// Replace marker with data from marker array
 				$content .= $thisCal->local_cObj->substituteMarkerArray($addressTemplate, $markContentArray);

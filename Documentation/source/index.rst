@@ -81,6 +81,8 @@ be displayed within the cal event display.
 The needed changes for the cal event template are described in the 
 :ref:`my-templating-label` section.
 
+If you want to add a link to a detail page, using wt_directory for example, you can add TypoScript configuration
+to add creation of the target url of the detail page.
 
 
 
@@ -101,7 +103,26 @@ When installing a new field *tx_addresslist4cal_addresses* is added to the *tx_c
  TypoScript configuration
 --------------------------
 
-To be filled out later.
+^^^^^^^^^^^^
+ detailPage
+^^^^^^^^^^^^
+
+The TypoScript setting *detailPage* defines the page id of the page with the detail view of an address record.
+
+::
+
+	plugin.tx_addresslist4cal.detailPage = 81
+
+^^^^^^^^^^^^^^^^^
+ addressUidParam
+^^^^^^^^^^^^^^^^^
+
+The TypoScript setting *addressUidParam* defines the url parameter that passes the uid of the tt_address record
+to the detail page.
+
+::
+
+	plugin.tx_addresslist4cal.addressUidParam = tx_wtdirectory_pi1[show]
 
 .. _my-templating-label:
 
@@ -113,8 +134,9 @@ The templating is done by enhancing the existing cal event template.
 
 In the *event_model.tmpl* file the section **TEMPLATE_PHPICALENDAR_EVENT** has to be enhaced.
 
-The template for displaying every single address record must created inside of the section.
-The marker for the single address template is **ADDRESSLIST4CAL_ADDRESS**.
+The template for displaying every single address record must created inside of the section
+**TEMPLATE_PHPICALENDAR_EVENT**.
+The marker for the single address template is **ADDRESSLIST4CAL_ADDRESS**. A sample template part looks like this:
 
 ::
 
@@ -123,11 +145,22 @@ The marker for the single address template is **ADDRESSLIST4CAL_ADDRESS**.
 	<hr />
 	<!-- ###ADDRESSLIST4CAL_ADDRESS### end -->
 
+
 For each *tt_address* record this template is used and concatenated to the previous one.
 Inside the template you can use all field names of the *tt_address* record (in upper case) as marker.
+
 The complete address list is then inserted inside the **TEMPLATE_PHPICALENDAR_EVENT** section
 with the marker **ADDRESSLIST4CAL** .
 
+Using the TypoScript settings for the detail page, the template part looks like this:
+
+::
+
+	<!-- ###ADDRESSLIST4CAL_ADDRESS### begin -->
+	###LAST_NAME###, ###FIRST_NAME###<br />
+	<a href="###DETAIL_PAGE_URL###">Details...</a><br />
+	<hr />
+	<!-- ###ADDRESSLIST4CAL_ADDRESS### end -->
 
 
 
