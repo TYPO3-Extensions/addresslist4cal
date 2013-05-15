@@ -12,9 +12,10 @@ $tempColumns = array(
 		'config' => Array (
 			'type' => 'select',
 			'foreign_table' => 'tt_address',
+			'foreign_table_where' => 'ORDER BY tt_address.last_name',
 			'size' => 6,
 			'minitems' => 0,
-			'maxitems' => 4,
+			'maxitems' => 10,
 		)
 	),
 );

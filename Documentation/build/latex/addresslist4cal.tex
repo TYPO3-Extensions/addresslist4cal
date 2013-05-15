@@ -14,7 +14,7 @@
 
 
 \title{addresslist4cal Documentation}
-\date{May 14, 2013}
+\date{May 15, 2013}
 \release{1.0.0-alpha}
 \author{Michael Oehlhof}
 \newcommand{\sphinxlogo}{}
@@ -127,6 +127,9 @@
 \item[{Extension Key}] \leavevmode
 addresslist4cal
 
+\item[{Version}] \leavevmode
+1.0.2
+
 \item[{Language}] \leavevmode
 en
 
@@ -137,7 +140,7 @@ cal, tt\_address
 Michael Oehlhof \textless{}\href{mailto:typo3@oehlhof.de}{typo3@oehlhof.de}\textgreater{}
 
 \item[{Date}] \leavevmode
-2013-05-09
+2013-05-15
 
 \item[{Description}] \leavevmode
 Using address data in cal events
@@ -231,6 +234,15 @@ to the detail page.
 \end{Verbatim}
 
 
+\subsection{dateFormat}
+\label{index:dateformat}
+The TypoScript setting \emph{dateFormat} defines the format of the birthday of an address record.
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{plugin}\PYG{p}{.}\PYG{n}{tx\PYGZus{}addresslist4cal}\PYG{p}{.}\PYG{n}{dateFormat} \PYG{o}{=} \PYG{o}{\PYGZpc{}}\PYG{n}{d}\PYG{p}{.}\PYG{o}{\PYGZpc{}}\PYG{n}{m}\PYG{p}{.}\PYG{o}{\PYGZpc{}}\PYG{n}{Y}
+\end{Verbatim}
+
+
 \section{Templating}
 \label{index:my-templating-label}\label{index:templating}
 The templating is done by enhancing the existing cal event template.
@@ -242,10 +254,20 @@ The template for displaying every single address record must created inside of t
 The marker for the single address template is \textbf{ADDRESSLIST4CAL\_ADDRESS}. A sample template part looks like this:
 
 \begin{Verbatim}[commandchars=\\\{\}]
-\PYG{o}{\PYGZlt{}}\PYG{o}{!}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}} \PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}\PYG{n}{ADDRESSLIST4CAL\PYGZus{}ADDRESS}\PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}} \PYG{n}{begin} \PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}
-\PYG{c+cp}{\PYGZsh{}}\PYG{c+cp}{\PYGZsh{}\PYGZsh{}LAST\PYGZus{}NAME\PYGZsh{}\PYGZsh{}\PYGZsh{}, \PYGZsh{}\PYGZsh{}\PYGZsh{}FIRST\PYGZus{}NAME\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZlt{}br }\PYG{c+cp}{/}\PYG{c+cp}{\PYGZgt{}}
-\PYG{o}{\PYGZlt{}}\PYG{n}{hr} \PYG{o}{/}\PYG{o}{\PYGZgt{}}
-\PYG{o}{\PYGZlt{}}\PYG{o}{!}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}} \PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}\PYG{n}{ADDRESSLIST4CAL\PYGZus{}ADDRESS}\PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}} \PYG{n}{end} \PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}
+\PYG{o}{\PYGZlt{}}\PYG{o}{!}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}\PYG{n}{TEMPLATE\PYGZus{}PHPICALENDAR\PYGZus{}EVENT}\PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}} \PYG{n}{begin} \PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}
+\PYG{o}{\PYGZlt{}}\PYG{o}{!}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{n}{phpicalendar\PYGZus{}event}\PYG{p}{.}\PYG{n}{tmpl}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}
+        \PYG{p}{.}\PYG{p}{.}\PYG{p}{.}
+        \PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}\PYG{n}{ADDRESSLIST4CAL}\PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}
+        \PYG{p}{.}\PYG{p}{.}\PYG{p}{.}
+        \PYG{o}{\PYGZlt{}}\PYG{o}{!}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}} \PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}\PYG{n}{SUBSCRIPTION}\PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}} \PYG{n}{start} \PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}
+        \PYG{p}{.}\PYG{p}{.}\PYG{p}{.}
+        \PYG{o}{\PYGZlt{}}\PYG{o}{!}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}} \PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}\PYG{n}{SUBSCRIPTION}\PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}} \PYG{n}{end} \PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}
+        \PYG{o}{\PYGZlt{}}\PYG{o}{!}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}} \PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}\PYG{n}{ADDRESSLIST4CAL\PYGZus{}ADDRESS}\PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}} \PYG{n}{begin} \PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}
+        \PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}\PYG{n}{LAST\PYGZus{}NAME}\PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}\PYG{p}{,} \PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}\PYG{n}{FIRST\PYGZus{}NAME}\PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}\PYG{o}{\PYGZlt{}}\PYG{n}{br} \PYG{o}{/}\PYG{o}{\PYGZgt{}}
+        \PYG{o}{\PYGZlt{}}\PYG{n}{hr} \PYG{o}{/}\PYG{o}{\PYGZgt{}}
+        \PYG{o}{\PYGZlt{}}\PYG{o}{!}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}} \PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}\PYG{n}{ADDRESSLIST4CAL\PYGZus{}ADDRESS}\PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}} \PYG{n}{end} \PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}
+\PYG{o}{\PYGZlt{}}\PYG{o}{!}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{/}\PYG{n}{phpicalendar\PYGZus{}event}\PYG{p}{.}\PYG{n}{tmpl}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}
+\PYG{o}{\PYGZlt{}}\PYG{o}{!}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}\PYG{n}{TEMPLATE\PYGZus{}PHPICALENDAR\PYGZus{}EVENT}\PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}}\PYG{err}{\PYGZsh{}} \PYG{n}{end} \PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}
 \end{Verbatim}
 
 For each \emph{tt\_address} record this template is used and concatenated to the previous one.
@@ -264,28 +286,38 @@ Using the TypoScript settings for the detail page, the template part looks like 
 \PYG{c}{\PYGZlt{}!\PYGZhy{}\PYGZhy{}}\PYG{c}{ \PYGZsh{}\PYGZsh{}\PYGZsh{}ADDRESSLIST4CAL\PYGZus{}ADDRESS\PYGZsh{}\PYGZsh{}\PYGZsh{} end }\PYG{c}{\PYGZhy{}\PYGZhy{}\PYGZgt{}}
 \end{Verbatim}
 
+Here is a list of all possible tt\_address fields:
 
-\chapter{Configuration}
-\label{index:configuration}
-This chapter describes the settings which are available in addresslist4cal.
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZsh{}\PYGZsh{}\PYGZsh{}NAME\PYGZsh{}\PYGZsh{}\PYGZsh{}}
+\PYG{c}{\PYGZsh{}\PYGZsh{}\PYGZsh{}GENDER\PYGZsh{}\PYGZsh{}\PYGZsh{}}
+\PYG{c}{\PYGZsh{}\PYGZsh{}\PYGZsh{}FIRST\PYGZus{}NAME\PYGZsh{}\PYGZsh{}\PYGZsh{}}
+\PYG{c}{\PYGZsh{}\PYGZsh{}\PYGZsh{}MIDDLE\PYGZus{}NAME\PYGZsh{}\PYGZsh{}\PYGZsh{}}
+\PYG{c}{\PYGZsh{}\PYGZsh{}\PYGZsh{}LAST\PYGZus{}NAME\PYGZsh{}\PYGZsh{}\PYGZsh{}}
+\PYG{c}{\PYGZsh{}\PYGZsh{}\PYGZsh{}BIRTHDAY\PYGZsh{}\PYGZsh{}\PYGZsh{}}
+\PYG{c}{\PYGZsh{}\PYGZsh{}\PYGZsh{}TITLE\PYGZsh{}\PYGZsh{}\PYGZsh{}}
+\PYG{c}{\PYGZsh{}\PYGZsh{}\PYGZsh{}EMAIL\PYGZsh{}\PYGZsh{}\PYGZsh{}}
+\PYG{c}{\PYGZsh{}\PYGZsh{}\PYGZsh{}PHONE\PYGZsh{}\PYGZsh{}\PYGZsh{}}
+\PYG{c}{\PYGZsh{}\PYGZsh{}\PYGZsh{}FAX\PYGZsh{}\PYGZsh{}\PYGZsh{}}
+\PYG{c}{\PYGZsh{}\PYGZsh{}\PYGZsh{}MOBILE\PYGZsh{}\PYGZsh{}\PYGZsh{}}
+\PYG{c}{\PYGZsh{}\PYGZsh{}\PYGZsh{}WWW\PYGZsh{}\PYGZsh{}\PYGZsh{}}
+\PYG{c}{\PYGZsh{}\PYGZsh{}\PYGZsh{}ADDRESS\PYGZsh{}\PYGZsh{}\PYGZsh{}}
+\PYG{c}{\PYGZsh{}\PYGZsh{}\PYGZsh{}BUILDING\PYGZsh{}\PYGZsh{}\PYGZsh{}}
+\PYG{c}{\PYGZsh{}\PYGZsh{}\PYGZsh{}ROOM\PYGZsh{}\PYGZsh{}\PYGZsh{}}
+\PYG{c}{\PYGZsh{}\PYGZsh{}\PYGZsh{}COMPANY\PYGZsh{}\PYGZsh{}\PYGZsh{}}
+\PYG{c}{\PYGZsh{}\PYGZsh{}\PYGZsh{}CITY\PYGZsh{}\PYGZsh{}\PYGZsh{}}
+\PYG{c}{\PYGZsh{}\PYGZsh{}\PYGZsh{}ZIP\PYGZsh{}\PYGZsh{}\PYGZsh{}}
+\PYG{c}{\PYGZsh{}\PYGZsh{}\PYGZsh{}REGION\PYGZsh{}\PYGZsh{}\PYGZsh{}}
+\PYG{c}{\PYGZsh{}\PYGZsh{}\PYGZsh{}COUNTRY\PYGZsh{}\PYGZsh{}\PYGZsh{}}
+\PYG{c}{\PYGZsh{}\PYGZsh{}\PYGZsh{}DESCRIPTION\PYGZsh{}\PYGZsh{}\PYGZsh{}}
+\PYG{c}{\PYGZsh{}\PYGZsh{}\PYGZsh{}IMAGE\PYGZsh{}\PYGZsh{}\PYGZsh{}}
+\PYG{c}{\PYGZsh{}\PYGZsh{}\PYGZsh{}DETAIL\PYGZus{}PAGE\PYGZus{}URL\PYGZsh{}\PYGZsh{}\PYGZsh{}}
+\end{Verbatim}
 
+The Gender character (m, f) is replaced by the locallang backend translation of the tt\_address table.
 
-\section{plugin.tx\_addresslist4cal}
-\label{index:plugin-tx-addresslist4cal}
-
-\subsection{Reference}
-\label{index:reference}
-Except of overriding labels of the locallang-file, the settings are defined by using
-\code{plugin.tx\textbackslash{}\_addresslist4cal.settings.\textless{}property\textgreater{}}.
-
-A simple way to get to know the default settings is to look at the
-file \code{EXT:addresslist4cal/Configuration/TypoScript/setup.txt}
-
-
-\subsection{Reference TsConfig}
-\label{index:reference-tsconfig}
-This section covers all configuration which can be set with TsConfig.
-Every configuration starts with \code{tx\textbackslash{}\_addresslist4cal}.
+The Birthday is converted into a user readable date representation.
+The default is the international date format (\%Y-\%m-\%d) and can be changed via TypoScript.
 
 
 \chapter{Tutorial}
@@ -298,6 +330,8 @@ There is no tutorial this time. It will be added later.
 \chapter{Developer manual}
 \label{index:developer-manual}
 This chapter is really targeted at extension developers.
+
+Maybe it will be filled out later.
 
 
 \chapter{Known problems}
@@ -340,6 +374,8 @@ There will be snippets, examples, tutorials.
 
 If you want to share something (remember: TYPO3 inspiring people to
 share), please add it to the issue tracker or send it per mail to me.
+
+The development starts at 2013-05-09.
 
 
 \section{Sponsoring \& Bugfixing}

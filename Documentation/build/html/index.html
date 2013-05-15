@@ -64,17 +64,10 @@
 <li><a class="reference internal" href="#typoscript-configuration">TypoScript configuration</a><ul>
 <li><a class="reference internal" href="#detailpage">detailPage</a></li>
 <li><a class="reference internal" href="#addressuidparam">addressUidParam</a></li>
+<li><a class="reference internal" href="#dateformat">dateFormat</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#templating">Templating</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#configuration">Configuration</a><ul>
-<li><a class="reference internal" href="#plugin-tx-addresslist4cal">plugin.tx_addresslist4cal</a><ul>
-<li><a class="reference internal" href="#reference">Reference</a></li>
-<li><a class="reference internal" href="#reference-tsconfig">Reference TsConfig</a></li>
-</ul>
-</li>
 </ul>
 </li>
 <li><a class="reference internal" href="#tutorial">Tutorial</a></li>
@@ -136,15 +129,17 @@
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Extension Key:</th><td class="field-body">addresslist4cal</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Language:</th><td class="field-body">en</td>
+<tr class="field-even field"><th class="field-name">Version:</th><td class="field-body">1.0.2</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Keywords:</th><td class="field-body">cal, tt_address</td>
+<tr class="field-odd field"><th class="field-name">Language:</th><td class="field-body">en</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Author:</th><td class="field-body">Michael Oehlhof &lt;<a class="reference external" href="mailto:typo3&#37;&#52;&#48;oehlhof&#46;de">typo3<span>&#64;</span>oehlhof<span>&#46;</span>de</a>&gt;</td>
+<tr class="field-even field"><th class="field-name">Keywords:</th><td class="field-body">cal, tt_address</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Date:</th><td class="field-body">2013-05-09</td>
+<tr class="field-odd field"><th class="field-name">Author:</th><td class="field-body">Michael Oehlhof &lt;<a class="reference external" href="mailto:typo3&#37;&#52;&#48;oehlhof&#46;de">typo3<span>&#64;</span>oehlhof<span>&#46;</span>de</a>&gt;</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Description:</th><td class="field-body">Using address data in cal events</td>
+<tr class="field-even field"><th class="field-name">Date:</th><td class="field-body">2013-05-15</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Description:</th><td class="field-body">Using address data in cal events</td>
 </tr>
 </tbody>
 </table>
@@ -212,6 +207,13 @@ to the detail page.</p>
 </pre></div>
 </div>
 </div>
+<div class="section" id="dateformat">
+<h4>dateFormat<a class="headerlink" href="#dateformat" title="Permalink to this headline">¶</a></h4>
+<p>The TypoScript setting <em>dateFormat</em> defines the format of the birthday of an address record.</p>
+<div class="highlight-guess"><div class="highlight"><pre><span class="n">plugin</span><span class="p">.</span><span class="n">tx_addresslist4cal</span><span class="p">.</span><span class="n">dateFormat</span> <span class="o">=</span> <span class="o">%</span><span class="n">d</span><span class="p">.</span><span class="o">%</span><span class="n">m</span><span class="p">.</span><span class="o">%</span><span class="n">Y</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="templating">
 <span id="my-templating-label"></span><h3>Templating<a class="headerlink" href="#templating" title="Permalink to this headline">¶</a></h3>
@@ -220,10 +222,20 @@ to the detail page.</p>
 <p>The template for displaying every single address record must created inside of the section
 <strong>TEMPLATE_PHPICALENDAR_EVENT</strong>.
 The marker for the single address template is <strong>ADDRESSLIST4CAL_ADDRESS</strong>. A sample template part looks like this:</p>
-<div class="highlight-guess"><div class="highlight"><pre><span class="o">&lt;!--</span> <span class="err">###</span><span class="n">ADDRESSLIST4CAL_ADDRESS</span><span class="err">###</span> <span class="n">begin</span> <span class="o">--&gt;</span>
-<span class="cp">###LAST_NAME###, ###FIRST_NAME###&lt;br /&gt;</span>
-<span class="o">&lt;</span><span class="n">hr</span> <span class="o">/&gt;</span>
-<span class="o">&lt;!--</span> <span class="err">###</span><span class="n">ADDRESSLIST4CAL_ADDRESS</span><span class="err">###</span> <span class="n">end</span> <span class="o">--&gt;</span>
+<div class="highlight-guess"><div class="highlight"><pre><span class="o">&lt;!--</span><span class="err">###</span><span class="n">TEMPLATE_PHPICALENDAR_EVENT</span><span class="err">###</span> <span class="n">begin</span> <span class="o">--&gt;</span>
+<span class="o">&lt;!--</span><span class="n">phpicalendar_event</span><span class="p">.</span><span class="n">tmpl</span><span class="o">--&gt;</span>
+        <span class="p">...</span>
+        <span class="err">###</span><span class="n">ADDRESSLIST4CAL</span><span class="err">###</span>
+        <span class="p">...</span>
+        <span class="o">&lt;!--</span> <span class="err">###</span><span class="n">SUBSCRIPTION</span><span class="err">###</span> <span class="n">start</span> <span class="o">--&gt;</span>
+        <span class="p">...</span>
+        <span class="o">&lt;!--</span> <span class="err">###</span><span class="n">SUBSCRIPTION</span><span class="err">###</span> <span class="n">end</span> <span class="o">--&gt;</span>
+        <span class="o">&lt;!--</span> <span class="err">###</span><span class="n">ADDRESSLIST4CAL_ADDRESS</span><span class="err">###</span> <span class="n">begin</span> <span class="o">--&gt;</span>
+        <span class="err">###</span><span class="n">LAST_NAME</span><span class="err">###</span><span class="p">,</span> <span class="err">###</span><span class="n">FIRST_NAME</span><span class="err">###</span><span class="o">&lt;</span><span class="n">br</span> <span class="o">/&gt;</span>
+        <span class="o">&lt;</span><span class="n">hr</span> <span class="o">/&gt;</span>
+        <span class="o">&lt;!--</span> <span class="err">###</span><span class="n">ADDRESSLIST4CAL_ADDRESS</span><span class="err">###</span> <span class="n">end</span> <span class="o">--&gt;</span>
+<span class="o">&lt;!--/</span><span class="n">phpicalendar_event</span><span class="p">.</span><span class="n">tmpl</span><span class="o">--&gt;</span>
+<span class="o">&lt;!--</span><span class="err">###</span><span class="n">TEMPLATE_PHPICALENDAR_EVENT</span><span class="err">###</span> <span class="n">end</span> <span class="o">--&gt;</span>
 </pre></div>
 </div>
 <p>For each <em>tt_address</em> record this template is used and concatenated to the previous one.
@@ -238,25 +250,35 @@ with the marker <strong>ADDRESSLIST4CAL</strong> .</p>
 <span class="c">&lt;!-- ###ADDRESSLIST4CAL_ADDRESS### end --&gt;</span>
 </pre></div>
 </div>
+<p>Here is a list of all possible tt_address fields:</p>
+<div class="highlight-guess"><div class="highlight"><pre><span class="c">###NAME###</span>
+<span class="c">###GENDER###</span>
+<span class="c">###FIRST_NAME###</span>
+<span class="c">###MIDDLE_NAME###</span>
+<span class="c">###LAST_NAME###</span>
+<span class="c">###BIRTHDAY###</span>
+<span class="c">###TITLE###</span>
+<span class="c">###EMAIL###</span>
+<span class="c">###PHONE###</span>
+<span class="c">###FAX###</span>
+<span class="c">###MOBILE###</span>
+<span class="c">###WWW###</span>
+<span class="c">###ADDRESS###</span>
+<span class="c">###BUILDING###</span>
+<span class="c">###ROOM###</span>
+<span class="c">###COMPANY###</span>
+<span class="c">###CITY###</span>
+<span class="c">###ZIP###</span>
+<span class="c">###REGION###</span>
+<span class="c">###COUNTRY###</span>
+<span class="c">###DESCRIPTION###</span>
+<span class="c">###IMAGE###</span>
+<span class="c">###DETAIL_PAGE_URL###</span>
+</pre></div>
 </div>
-</div>
-<div class="section" id="configuration">
-<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
-<p>This chapter describes the settings which are available in addresslist4cal.</p>
-<div class="section" id="plugin-tx-addresslist4cal">
-<h3>plugin.tx_addresslist4cal<a class="headerlink" href="#plugin-tx-addresslist4cal" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="reference">
-<h4>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h4>
-<p>Except of overriding labels of the locallang-file, the settings are defined by using
-<tt class="code typoscript docutils literal"><span class="pre">plugin.tx\_addresslist4cal.settings.&lt;property&gt;</span></tt>.</p>
-<p>A simple way to get to know the default settings is to look at the
-file <tt class="code php docutils literal"><span class="pre">EXT:addresslist4cal/Configuration/TypoScript/setup.txt</span></tt></p>
-</div>
-<div class="section" id="reference-tsconfig">
-<h4>Reference TsConfig<a class="headerlink" href="#reference-tsconfig" title="Permalink to this headline">¶</a></h4>
-<p>This section covers all configuration which can be set with TsConfig.
-Every configuration starts with <tt class="code typoscript docutils literal"><span class="pre">tx\_addresslist4cal</span></tt>.</p>
-</div>
+<p>The Gender character (m, f) is replaced by the locallang backend translation of the tt_address table.</p>
+<p>The Birthday is converted into a user readable date representation.
+The default is the international date format (%Y-%m-%d) and can be changed via TypoScript.</p>
 </div>
 </div>
 <div class="section" id="tutorial">
@@ -267,6 +289,7 @@ Every configuration starts with <tt class="code typoscript docutils literal"><sp
 <div class="section" id="developer-manual">
 <h2>Developer manual<a class="headerlink" href="#developer-manual" title="Permalink to this headline">¶</a></h2>
 <p>This chapter is really targeted at extension developers.</p>
+<p>Maybe it will be filled out later.</p>
 </div>
 <div class="section" id="known-problems">
 <h2>Known problems<a class="headerlink" href="#known-problems" title="Permalink to this headline">¶</a></h2>
@@ -296,6 +319,7 @@ follow this link to know which bugs have been fixed in which version.</p>
 <p>There will be snippets, examples, tutorials.</p>
 <p>If you want to share something (remember: TYPO3 inspiring people to
 share), please add it to the issue tracker or send it per mail to me.</p>
+<p>The development starts at 2013-05-09.</p>
 <div class="section" id="sponsoring-bugfixing">
 <h3>Sponsoring &amp; Bugfixing<a class="headerlink" href="#sponsoring-bugfixing" title="Permalink to this headline">¶</a></h3>
 <p>Nobody is perfect and nothing is complete. Out of those 2 simple

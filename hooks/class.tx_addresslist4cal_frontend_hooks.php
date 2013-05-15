@@ -67,6 +67,14 @@ class tx_addresslist4cal_frontend_hooks {
 					)
 				);
 				$markContentArray['###DETAIL_PAGE_URL###'] = $url;
+				// Replace gender and birthday with user readable text
+				$GLOBALS['LANG']->includeLLFile(t3lib_extMgm::extPath('tt_address') . 'locallang_tca.xml');
+				$markContentArray['###GENDER###'] = $GLOBALS['LANG']->getLL('tt_address.gender.' . $markContentArray['###GENDER###']);
+				$dateFormat = $config['dateFormat'];
+				if (empty($dateFormat)) {
+					$dateFormat = '%Y-%m-%d';
+				}
+				$markContentArray['###BIRTHDAY###'] = strftime($dateFormat, intval($markContentArray['###BIRTHDAY###']));
 
 				// Replace marker with data from marker array
 				$content .= $thisCal->local_cObj->substituteMarkerArray($addressTemplate, $markContentArray);

@@ -21,10 +21,11 @@ EXT: Addresslist4Cal
 ============================================================
 
 :Extension Key: addresslist4cal
+:Version:       1.0.2
 :Language:      en
 :Keywords:      cal, tt_address
 :Author:        Michael Oehlhof <typo3@oehlhof.de>
-:Date:          2013-05-09
+:Date:          2013-05-15
 :Description:   Using address data in cal events
 
 
@@ -124,6 +125,17 @@ to the detail page.
 
 	plugin.tx_addresslist4cal.addressUidParam = tx_wtdirectory_pi1[show]
 
+^^^^^^^^^^^^
+ dateFormat
+^^^^^^^^^^^^
+
+The TypoScript setting *dateFormat* defines the format of the birthday of an address record.
+
+::
+
+	plugin.tx_addresslist4cal.dateFormat = %d.%m.%Y
+
+
 .. _my-templating-label:
 
 ------------
@@ -140,10 +152,20 @@ The marker for the single address template is **ADDRESSLIST4CAL_ADDRESS**. A sam
 
 ::
 
-	<!-- ###ADDRESSLIST4CAL_ADDRESS### begin -->
-	###LAST_NAME###, ###FIRST_NAME###<br />
-	<hr />
-	<!-- ###ADDRESSLIST4CAL_ADDRESS### end -->
+	<!--###TEMPLATE_PHPICALENDAR_EVENT### begin -->
+	<!--phpicalendar_event.tmpl-->
+		...
+		###ADDRESSLIST4CAL###
+		...
+		<!-- ###SUBSCRIPTION### start -->
+		...
+		<!-- ###SUBSCRIPTION### end -->
+		<!-- ###ADDRESSLIST4CAL_ADDRESS### begin -->
+		###LAST_NAME###, ###FIRST_NAME###<br />
+		<hr />
+		<!-- ###ADDRESSLIST4CAL_ADDRESS### end -->
+	<!--/phpicalendar_event.tmpl-->
+	<!--###TEMPLATE_PHPICALENDAR_EVENT### end -->
 
 
 For each *tt_address* record this template is used and concatenated to the previous one.
@@ -162,37 +184,38 @@ Using the TypoScript settings for the detail page, the template part looks like 
 	<hr />
 	<!-- ###ADDRESSLIST4CAL_ADDRESS### end -->
 
+Here is a list of all possible tt_address fields:
 
+::
 
-===============
- Configuration
-===============
+	###NAME###
+	###GENDER###
+	###FIRST_NAME###
+	###MIDDLE_NAME###
+	###LAST_NAME###
+	###BIRTHDAY###
+	###TITLE###
+	###EMAIL###
+	###PHONE###
+	###FAX###
+	###MOBILE###
+	###WWW###
+	###ADDRESS###
+	###BUILDING###
+	###ROOM###
+	###COMPANY###
+	###CITY###
+	###ZIP###
+	###REGION###
+	###COUNTRY###
+	###DESCRIPTION###
+	###IMAGE###
+	###DETAIL_PAGE_URL###
 
-This chapter describes the settings which are available in addresslist4cal.
+The Gender character (m, f) is replaced by the locallang backend translation of the tt_address table.
 
----------------------------
- plugin.tx_addresslist4cal
----------------------------
-
-
-^^^^^^^^^^^
- Reference
-^^^^^^^^^^^
-
-Except of overriding labels of the locallang-file, the settings are defined by using
-:typoscript:`plugin.tx\_addresslist4cal.settings.<property>`.
-
-A simple way to get to know the default settings is to look at the
-file :php:`EXT:addresslist4cal/Configuration/TypoScript/setup.txt`
-
-
-^^^^^^^^^^^^^^^^^^^^
- Reference TsConfig
-^^^^^^^^^^^^^^^^^^^^
-
-This section covers all configuration which can be set with TsConfig.
-Every configuration starts with :typoscript:`tx\_addresslist4cal`.
-
+The Birthday is converted into a user readable date representation.
+The default is the international date format (%Y-%m-%d) and can be changed via TypoScript.
 
 
 
@@ -213,7 +236,7 @@ There is no tutorial this time. It will be added later.
 
 This chapter is really targeted at extension developers.
 
-
+Maybe it will be filled out later.
 
 
 
@@ -275,6 +298,7 @@ There will be snippets, examples, tutorials.
 If you want to share something (remember: TYPO3 inspiring people to
 share), please add it to the issue tracker or send it per mail to me.
 
+The development starts at 2013-05-09.
 
 ------------------------
  Sponsoring & Bugfixing
