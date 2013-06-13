@@ -3,7 +3,7 @@
 /***************************************************************
  * Extension Manager/Repository config file for ext "addresslist4cal".
  *
- * Auto generated 19-05-2013 19:21
+ * Auto generated 13-06-2013 20:27
  *
  * Manual updates:
  * Only the data in the array - everything else is removed by next
@@ -15,7 +15,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'description' => 'Adds selection of tt_address records to the CAL extension.',
 	'category' => 'plugin',
 	'shy' => 0,
-	'version' => '1.0.3',
+	'version' => '1.0.5',
 	'dependencies' => 'cal,tt_address',
 	'conflicts' => '',
 	'priority' => '',
